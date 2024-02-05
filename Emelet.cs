@@ -18,10 +18,7 @@ namespace ParkoloHaz
             var adatok = r.Split(';');
             this.emeletNev = adatok[0].PadRight(10);
             this.szektorAdatok = new List<int>();
-            for (int i = 1; i < adatok.Length; i++)
-            {
-                szektorAdatok.Add(int.Parse(adatok[i]));
-            }
+            for (int i = 1; i < adatok.Length; i++) szektorAdatok.Add(int.Parse(adatok[i]));
         }
 
         public override string ToString()
