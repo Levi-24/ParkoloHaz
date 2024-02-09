@@ -56,3 +56,8 @@ foreach (var szektor in egyAutoSzektorok)
 {
     sw.WriteLine($"{szektor.Emelet} - {szektor.Szektor}");
 }
+
+Console.WriteLine();
+Console.WriteLine("Feladat 12.");
+var legtobbAuto = parkoloHaz.Select(emelet => emelet.szektorAdatok.Sum()).Max();
+var legtobbSorszam = parkoloHaz.Select(emelet => emelet.sorszam)
