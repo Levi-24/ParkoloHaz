@@ -10,15 +10,15 @@ namespace ParkoloHaz
     {
         public int sorszam { get; set; }
         public string emeletNev { get; set; }
-        public List<int> szektorAdatok { get; set; }
+        public List<double> szektorAdatok { get; set; }
 
         public Emelet(string r, int sorszam)
         {
             this.sorszam = sorszam;
             var adatok = r.Split(';');
             this.emeletNev = adatok[0].PadRight(10);
-            this.szektorAdatok = new List<int>();
-            for (int i = 1; i < adatok.Length; i++) szektorAdatok.Add(int.Parse(adatok[i]));
+            this.szektorAdatok = new List<double>();
+            for (int i = 1; i < adatok.Length; i++) szektorAdatok.Add(double.Parse(adatok[i]));
         }
 
         public override string ToString()
