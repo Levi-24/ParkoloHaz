@@ -16,8 +16,8 @@ foreach (var emelet in parkoloHaz) Console.WriteLine(emelet);
 
 Console.WriteLine();
 Console.WriteLine("Feladat 8.");
-var legkevesebbAutosEmelet = parkoloHaz.OrderBy(x => x.szektorAdatok.Sum()).First();
-Console.WriteLine(legkevesebbAutosEmelet.emeletNev);
+var legkevesebbAutoEmelet = parkoloHaz.OrderBy(x => x.szektorAdatok.Sum()).First();
+Console.WriteLine(legkevesebbAutoEmelet.emeletNev);
 
 Console.WriteLine();
 Console.WriteLine("Feladat 9.");
@@ -47,17 +47,30 @@ Console.WriteLine(nagyAtlagAutoKeres);
 
 Console.WriteLine();
 Console.WriteLine("Feladat 11.");
+Console.WriteLine("Fájlba irás");
 var egyAutoSzektorok = parkoloHaz
     .SelectMany(emelet => emelet.szektorAdatok.Select((szektor, index) => new { Emelet = emelet.sorszam, Szektor = index + 1, AutoSzam = szektor }))
     .Where(szektor => szektor.AutoSzam == 1);
 
 using StreamWriter sw = new StreamWriter("../../../src/1-1.txt");
-foreach (var szektor in egyAutoSzektorok)
-{
-    sw.WriteLine($"{szektor.Emelet} - {szektor.Szektor}");
-}
+foreach (var szektor in egyAutoSzektorok) sw.WriteLine($"{szektor.Emelet} - {szektor.Szektor}");
 
 Console.WriteLine();
 Console.WriteLine("Feladat 12.");
-var legtobbAuto = parkoloHaz.Select(emelet => emelet.szektorAdatok.Sum()).Max();
-var legtobbSorszam = parkoloHaz.Select(emelet => emelet.sorszam)
+var legtobbAutoEmelet = parkoloHaz.OrderByDescending(emelet => emelet.szektorAdatok.Sum()).First();
+
+if (legtobbAutoEmelet.sorszam == 1) Console.WriteLine("Igaz, hogy a legfelső emeleten van a legtöbb autó.");
+else Console.WriteLine($"A legtöbb autó a {legtobbAutoEmelet.sorszam}. {legtobbAutoEmelet.emeletNev} emeleten van, {legtobbAutoEmelet.szektorAdatok.Sum()}db autó van az emeleten.");
+
+Console.WriteLine();
+Console.WriteLine("Feladat 13.");
+Console.WriteLine("Fájlba irás");
+var szabadHelyek = parkoloHaz.Select(x => 90 - x.szektorAdatok.Sum()).ToList();
+
+sw.WriteLine("13. Feladat:");
+foreach (var hely in szabadHelyek) sw.WriteLine(hely);
+
+Console.WriteLine();
+Console.WriteLine("Feladat 14.");
+double szabadParkoloHaz = szabadHelyek.Sum();
+Console.WriteLine(szabadParkoloHaz);
